@@ -40,7 +40,7 @@ export const compileTags = (elements: IdentifierOneToMany[]): RegistryElement<Ta
             if (!tempTags[path]) {
                 tempTags[path] = {
                     identifier: tags,
-                    tags: []
+                    tags: [],
                 };
             }
 
@@ -56,7 +56,7 @@ export const compileTags = (elements: IdentifierOneToMany[]): RegistryElement<Ta
     for (const path in tempTags) {
         tags.push({
             identifier: tempTags[path].identifier,
-            data: { values: tempTags[path].tags }
+            data: { values: tempTags[path].tags },
         });
     }
 

@@ -14,7 +14,7 @@ type ApplyMobEffect = {
 };
 
 type DamageEntity = {
-    type: "minecraft:damage_entity" | "minecraft:change_entity_damage";
+    type: "minecraft:damage_entity";
     damage_type: string;
     min_damage: LevelBasedValue;
     max_damage: LevelBasedValue;

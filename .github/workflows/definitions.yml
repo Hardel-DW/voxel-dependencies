@@ -1,39 +1,52 @@
 name: Voxel Definitions - Test & Publish
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '@voxel-definitions/**'
-  pull_request:
-    branches: [main]
-    paths:
-      - '@voxel-definitions/**'
+    push:
+        branches: [main]
+        paths:
+            - "@voxel-definitions/**"
+            - "@voxel-definitions-1-21/**"
+            - "@voxel-definitions-1-21-2/**"
+    pull_request:
+        branches: [main]
+        paths:
+            - "@voxel-definitions/**"
+            - "@voxel-definitions-1-21/**"
+            - "@voxel-definitions-1-21-2/**"
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: denoland/setup-deno@v2
-        with:
-          deno-version: v2.x
-      - name: Check formatting
-        run: cd @voxel-definitions && deno fmt --check
-      - name: Run tests
-        run: cd @voxel-definitions && deno test --allow-net
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: denoland/setup-deno@v2
+              with:
+                  deno-version: v2.x
+            - name: Check formatting
+              run: |
+                  cd @voxel-definitions && deno fmt --check
+                  cd ../@voxel-definitions-1-21 && deno fmt --check
+                  cd ../@voxel-definitions-1-21-2 && deno fmt --check
+            - name: Run tests
+              run: |
+                  cd @voxel-definitions && deno test --allow-net
+                  cd ../@voxel-definitions-1-21 && deno test --allow-net
+                  cd ../@voxel-definitions-1-21-2 && deno test --allow-net
 
-  publish:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - uses: actions/checkout@v3
-      - uses: denoland/setup-deno@v2
-        with:
-          deno-version: v2.x
-      - name: Publish package
-        run: cd @voxel-definitions && deno publish
+    publish:
+        needs: build
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            id-token: write
+        if: github.ref == 'refs/heads/main'
+        steps:
+            - uses: actions/checkout@v3
+            - uses: denoland/setup-deno@v2
+              with:
+                  deno-version: v2.x
+            - name: Publish packages
+              run: |
+                  cd @voxel-definitions && deno publish
+                  cd ../@voxel-definitions-1-21 && deno publish
+                  cd ../@voxel-definitions-1-21-2 && deno publish

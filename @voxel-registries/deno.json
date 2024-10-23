@@ -1,7 +1,11 @@
 {
-  "name": "@voxel/registry",
-  "version": "0.1.2",
-  "exports": "./package/index.ts",
-  "license": "MIT",
-  "exclude": ["test", ".vscode", ".github"]
+    "name": "@voxel/registry",
+    "version": "0.1.2",
+    "exports": "./package/index.ts",
+    "license": "MIT",
+    "exclude": ["test", ".vscode", ".github"],
+    "fmt": {
+        "lineWidth": 140,
+        "indentWidth": 4
+    }
 }

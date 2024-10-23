@@ -11,7 +11,7 @@ export const SLOT_MAPPINGS = {
     head: ["head"],
     chest: ["chest"],
     legs: ["legs"],
-    feet: ["feet"]
+    feet: ["feet"],
 };
 
 export function isSlotRegistryType(value: string): value is SlotRegistryType {

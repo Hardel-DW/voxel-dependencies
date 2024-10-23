@@ -8,12 +8,12 @@ import { CollectionRegistry } from "./registry.ts";
  * @throws Error if the key does not exist in the registry
  */
 export function getList(key: RegistryKey): string[] {
-  const registry = CollectionRegistry.getInstance();
-  const collection = registry.get(key);
+    const registry = CollectionRegistry.getInstance();
+    const collection = registry.get(key);
 
-  if (!collection) {
-    throw new Error(`The collection ${key} does not exist`);
-  }
+    if (!collection) {
+        throw new Error(`The collection ${key} does not exist`);
+    }
 
-  return collection;
+    return collection;
 }

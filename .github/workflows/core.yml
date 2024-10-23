@@ -1,14 +1,14 @@
-name: Voxel Registries - Test & Publish
+name: Voxel Core - Test & Publish
 
 on:
     push:
         branches: [main]
         paths:
-            - "@voxel-registries/**"
+            - "@voxel-core/**"
     pull_request:
         branches: [main]
         paths:
-            - "@voxel-registries/**"
+            - "@voxel-core/**"
 
 jobs:
     build:
@@ -19,9 +19,9 @@ jobs:
               with:
                   deno-version: v2.x
             - name: Check formatting
-              run: cd @voxel-registries && deno fmt --check
+              run: cd @voxel-core && deno fmt --check
             - name: Run tests
-              run: cd @voxel-registries && deno test --allow-net
+              run: cd @voxel-core && deno test --allow-net
 
     publish:
         needs: build
@@ -36,4 +36,4 @@ jobs:
               with:
                   deno-version: v2.x
             - name: Publish package
-              run: cd @voxel-registries && deno publish
+              run: cd @voxel-core && deno publish
