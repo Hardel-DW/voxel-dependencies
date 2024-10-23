@@ -1,11 +1,11 @@
 {
-    "name": "@voxel/definitions",
-    "version": "0.1.0",
-    "exports": "./package/index.ts",
-    "license": "MIT",
-    "exclude": ["test"],
-    "fmt": {
-        "lineWidth": 140,
-        "indentWidth": 4
-    }
+	"name": "@voxel/definitions",
+	"version": "0.1.1",
+	"exports": "./package/index.ts",
+	"license": "MIT",
+	"exclude": ["test"],
+	"fmt": {
+		"lineWidth": 140,
+		"indentWidth": 4
+	}
 }
