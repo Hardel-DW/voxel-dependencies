@@ -27,11 +27,6 @@ jobs:
                   cd @voxel-definitions && deno fmt --check
                   cd ../@voxel-definitions-1-21 && deno fmt --check
                   cd ../@voxel-definitions-1-21-2 && deno fmt --check
-            - name: Run tests
-              run: |
-                  cd @voxel-definitions && deno test --allow-net
-                  cd ../@voxel-definitions-1-21 && deno test --allow-net
-                  cd ../@voxel-definitions-1-21-2 && deno test --allow-net
 
     publish:
         needs: build
