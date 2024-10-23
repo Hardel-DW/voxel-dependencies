@@ -1,7 +1,7 @@
 {
 	"name": "@voxel/definitions",
 	"version": "0.1.0",
-	"exports": "./src/index.ts",
+	"exports": "./package/index.ts",
 	"license": "MIT",
 	"exclude": ["test", ".vscode"]
 }
