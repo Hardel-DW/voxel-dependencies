@@ -4,6 +4,10 @@
     "exports": "./package/index.ts",
     "license": "MIT",
     "exclude": ["test"],
+    "imports": {
+        "@voxel/definitions": "jsr:@voxel/definitions@0.2.0",
+        "@voxel/registry": "jsr:@voxel/registry@0.2.0"
+    },
     "fmt": {
         "lineWidth": 140,
         "indentWidth": 4
