@@ -1,9 +1,6 @@
-import JSZip from "jszip";
-
-export type RegistryElement<RegistryType> = {
-    data: RegistryType;
-    identifier: Identifier;
-};
+import JSZip from "npm:jszip@3.10.1";
+import { Identifier } from "./core/Identifier.ts";
+import type { RegistryElement, VoxelElement } from "./index.ts";
 
 /**
  * Searches for registries in the given files and returns them. For example, if the given registry is "advancements", this function will return all advancements in the given files.
@@ -50,9 +47,7 @@ export function getRegistry<T>(
     return registries;
 }
 
-export async function parseZip(
-    file: File,
-): Promise<Record<string, Uint8Array>> {
+export function parseZip(file: File): Promise<Record<string, Uint8Array>> {
     const reader = new FileReader();
 
     return new Promise((resolve, reject) => {
@@ -92,7 +87,7 @@ export function readDatapackFile<T>(
     return JSON.parse(new TextDecoder().decode(datapack[file]));
 }
 
-export async function generateZip(
+export function generateZip(
     files: Record<string, Uint8Array>,
     content: RegistryElement<VoxelElement>[],
 ): Promise<Uint8Array> {
@@ -100,10 +95,6 @@ export async function generateZip(
 
     for (const [path, data] of Object.entries(files)) {
         zip.file(path, data);
-    }
-
-    for (const file of voxelDatapacks) {
-        zip.file(`${file.identifier.filePath()}.json`, JSON.stringify(file.data));
     }
 
     for (const file of content) {

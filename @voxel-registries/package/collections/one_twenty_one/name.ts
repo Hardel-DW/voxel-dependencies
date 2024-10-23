@@ -1,5 +1,5 @@
 export type RegistryKey = (typeof REGISTRY_NAME)[number];
-const REGISTRY_NAME = [
+export const REGISTRY_NAME = [
     "activity",
     "advancement",
     "atlas",

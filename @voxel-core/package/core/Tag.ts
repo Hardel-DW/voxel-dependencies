@@ -1,13 +1,16 @@
-import type { Identifier, IdentifierOneToMany } from "@/lib/minecraft/core/Identifier.ts";
-import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
-import type { TagType } from "@/lib/minecraft/schema/tag/TagType.ts";
+import type { TagType } from "jsr:@voxel-definitions";
+import type { Identifier, IdentifierOneToMany } from "./Identifier.ts";
+import type { RegistryElement } from "./Registry.ts";
 
 /**
  * Searches for a tag in a list of tags.
  * @param tag - The JSON tag object.
  * @param value - The value to search for.
  */
-export const isPresentInTag = (tag: RegistryElement<TagType>, value: string): boolean => {
+export const isPresentInTag = (
+    tag: RegistryElement<TagType>,
+    value: string,
+): boolean => {
     return tag.data.values.some((tagValue) => {
         if (typeof tagValue === "string") {
             return tagValue === value;
@@ -21,7 +24,9 @@ export const isPresentInTag = (tag: RegistryElement<TagType>, value: string): bo
     });
 };
 
-export const compileTags = (elements: IdentifierOneToMany[]): RegistryElement<TagType>[] => {
+export const compileTags = (
+    elements: IdentifierOneToMany[],
+): RegistryElement<TagType>[] => {
     const tags: RegistryElement<TagType>[] = [];
 
     // File name, all tags

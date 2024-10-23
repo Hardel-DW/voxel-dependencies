@@ -1,6 +1,16 @@
 export type SlotRegistryType = (typeof SlotManager)[number];
 
-const SlotManager = ["any", "mainhand", "offhand", "hand", "head", "chest", "legs", "feet", "armor"] as const;
+export const SlotManager = [
+    "any",
+    "mainhand",
+    "offhand",
+    "hand",
+    "head",
+    "chest",
+    "legs",
+    "feet",
+    "armor",
+] as const;
 
 export const SLOT_MAPPINGS = {
     any: ["mainhand", "offhand", "head", "chest", "legs", "feet"],
@@ -18,11 +28,16 @@ export function isSlotRegistryType(value: string): value is SlotRegistryType {
     return SlotManager.includes(value as SlotRegistryType);
 }
 
-export function isArraySlotRegistryType(value: string[]): value is SlotRegistryType[] {
+export function isArraySlotRegistryType(
+    value: string[],
+): value is SlotRegistryType[] {
     return value.every(isSlotRegistryType);
 }
 
-export function addSlot(existingSlots: SlotRegistryType[], newSlot: SlotRegistryType): SlotRegistryType[] {
+export function addSlot(
+    existingSlots: SlotRegistryType[],
+    newSlot: SlotRegistryType,
+): SlotRegistryType[] {
     if (newSlot === "any") return ["any"];
     let updatedSlots = [...new Set([...existingSlots, newSlot])];
 
@@ -45,7 +60,10 @@ export function addSlot(existingSlots: SlotRegistryType[], newSlot: SlotRegistry
     return updatedSlots;
 }
 
-export function removeSlot(existingSlots: SlotRegistryType[], slotToRemove: SlotRegistryType): SlotRegistryType[] {
+export function removeSlot(
+    existingSlots: SlotRegistryType[],
+    slotToRemove: SlotRegistryType,
+): SlotRegistryType[] {
     if (existingSlots.length === 0) {
         return [];
     }
@@ -57,7 +75,9 @@ export function removeSlot(existingSlots: SlotRegistryType[], slotToRemove: Slot
             if (slotToRemove === "mainhand" || slotToRemove === "offhand") {
                 result.add("armor");
                 result.add(slotToRemove === "mainhand" ? "offhand" : "mainhand");
-            } else if (SLOT_MAPPINGS.armor.includes(slotToRemove as SlotRegistryType)) {
+            } else if (
+                SLOT_MAPPINGS.armor.includes(slotToRemove as SlotRegistryType)
+            ) {
                 result.add("hand");
                 for (const s of SLOT_MAPPINGS.armor) {
                     if (s !== slotToRemove) result.add(s as SlotRegistryType);
@@ -66,11 +86,17 @@ export function removeSlot(existingSlots: SlotRegistryType[], slotToRemove: Slot
                 result.add("hand");
                 result.add("armor");
             }
-        } else if (slot === "armor" && SLOT_MAPPINGS.armor.includes(slotToRemove as SlotRegistryType)) {
+        } else if (
+            slot === "armor" &&
+            SLOT_MAPPINGS.armor.includes(slotToRemove as SlotRegistryType)
+        ) {
             for (const s of SLOT_MAPPINGS.armor) {
                 if (s !== slotToRemove) result.add(s as SlotRegistryType);
             }
-        } else if (slot === "hand" && SLOT_MAPPINGS.hand.includes(slotToRemove as SlotRegistryType)) {
+        } else if (
+            slot === "hand" &&
+            SLOT_MAPPINGS.hand.includes(slotToRemove as SlotRegistryType)
+        ) {
             for (const s of SLOT_MAPPINGS.hand) {
                 if (s !== slotToRemove) result.add(s as SlotRegistryType);
             }
@@ -82,10 +108,14 @@ export function removeSlot(existingSlots: SlotRegistryType[], slotToRemove: Slot
     return Array.from(result);
 }
 
-export function toggleSlot(existingSlots: SlotRegistryType[], slotToToggle: SlotRegistryType): SlotRegistryType[] {
+export function toggleSlot(
+    existingSlots: SlotRegistryType[],
+    slotToToggle: SlotRegistryType,
+): SlotRegistryType[] {
     const keyExistInParams = existingSlots.includes(slotToToggle);
     const keyExistInHand = existingSlots.includes("hand") && SLOT_MAPPINGS.hand.includes(slotToToggle);
-    const keyExistInArmor = existingSlots.includes("armor") && SLOT_MAPPINGS.armor.includes(slotToToggle);
+    const keyExistInArmor = existingSlots.includes("armor") &&
+        SLOT_MAPPINGS.armor.includes(slotToToggle);
     const keyExistInAny = existingSlots.includes("any") && SLOT_MAPPINGS.any.includes(slotToToggle);
 
     return keyExistInParams || keyExistInHand || keyExistInArmor || keyExistInAny

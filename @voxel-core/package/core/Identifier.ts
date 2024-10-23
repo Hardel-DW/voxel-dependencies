@@ -1,6 +1,5 @@
-import { REGISTRIES } from "@/lib/minecraft/core/Registries.ts";
-import type { RegistryElement } from "@/lib/minecraft/mczip.ts";
-import type { OptionalTag } from "@/lib/minecraft/schema/tag/TagType.ts";
+import { REGISTRY_NAME } from "jsr:@voxel/registry";
+import type { OptionalTag } from "jsr:@voxel/definitions";
 
 export type IdentifierOneToMany = {
     primary: Identifier;
@@ -13,7 +12,13 @@ export class Identifier {
     private readonly tag: boolean;
     private readonly required: boolean;
 
-    public constructor(namespace: string, registry: string | undefined, path: string, isTag = false, isRequired = false) {
+    public constructor(
+        namespace: string,
+        registry: string | undefined,
+        path: string,
+        isTag = false,
+        isRequired = false,
+    ) {
         this.namespace = namespace;
         this.registry = registry;
         this.resource = path;
@@ -21,20 +26,31 @@ export class Identifier {
         this.required = isRequired;
     }
 
-    public static fromString(value: string | OptionalTag, registry?: string): Identifier {
+    public static fromString(
+        value: string | OptionalTag,
+        registry?: string,
+    ): Identifier {
         const isRequired = typeof value !== "string" ? value.required : true;
         const parsedValue = Identifier.getValue(value);
         const isTag = parsedValue.includes("#");
 
-        const [namespace, resource] = (parsedValue.startsWith("#") ? parsedValue.slice(1) : parsedValue).split(":");
+        const [namespace, resource] = (
+            parsedValue.startsWith("#") ? parsedValue.slice(1) : parsedValue
+        ).split(":");
         if (registry) {
             return new Identifier(namespace, registry, resource, isTag, isRequired);
         }
 
-        for (const registry of REGISTRIES) {
+        for (const registry of REGISTRY_NAME) {
             if (resource.startsWith(registry)) {
                 const newResource = resource.slice(registry.length + 1);
-                return new Identifier(namespace, registry, newResource, isTag, isRequired);
+                return new Identifier(
+                    namespace,
+                    registry,
+                    newResource,
+                    isTag,
+                    isRequired,
+                );
             }
         }
 
@@ -47,15 +63,21 @@ export class Identifier {
 
     public static sortRegistry<T>(elements: RegistryElement<T>[]) {
         return elements.sort((a, b) =>
-            (a.identifier.getResource().split("/").pop() ?? "").localeCompare(b.identifier.getResource().split("/").pop() ?? "")
+            (a.identifier.getResource().split("/").pop() ?? "").localeCompare(
+                b.identifier.getResource().split("/").pop() ?? "",
+            )
         );
     }
 
     public static sortIdentifier(elements: Identifier[]) {
         return elements.sort((a, b) => {
-            const namespaceComparison = a.getNamespace().localeCompare(b.getNamespace());
+            const namespaceComparison = a
+                .getNamespace()
+                .localeCompare(b.getNamespace());
             if (namespaceComparison === 0) {
-                return (a.getResource().split("/").pop() ?? "").localeCompare(b.getResource().split("/").pop() ?? "");
+                return (a.getResource().split("/").pop() ?? "").localeCompare(
+                    b.getResource().split("/").pop() ?? "",
+                );
             }
 
             return namespaceComparison;
@@ -108,11 +130,15 @@ export class Identifier {
     }
 
     public render(): string {
-        return (this.resource.split("/")?.pop() ?? this.resource).replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
+        return (this.resource.split("/")?.pop() ?? this.resource)
+            .replace(/_/g, " ")
+            .replace(/\b\w/g, (l) => l.toUpperCase());
     }
 
     public renderNamespace(): string {
-        return this.namespace.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
+        return this.namespace
+            .replace(/_/g, " ")
+            .replace(/\b\w/g, (l) => l.toUpperCase());
     }
 
     public renderResourceName(): string {

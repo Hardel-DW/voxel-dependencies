@@ -2,9 +2,6 @@
     "name": "@voxel/core",
     "version": "0.1.0",
     "exports": "./package/index.ts",
-    "imports": {
-        "jszip": "npm:jszip@3.10.1"
-    },
     "license": "MIT",
     "exclude": ["test"],
     "fmt": {
