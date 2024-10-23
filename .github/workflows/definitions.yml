@@ -1,10 +1,14 @@
-name: Tests
+name: Voxel Definitions - Test & Publish
 
 on:
   push:
     branches: [main]
+    paths:
+      - '@voxel-definitions/**'
   pull_request:
     branches: [main]
+    paths:
+      - '@voxel-definitions/**'
 
 jobs:
   build:
@@ -14,8 +18,10 @@ jobs:
       - uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
-      - run: deno fmt --check
-      - run: deno test --allow-net
+      - name: Check formatting
+        run: cd @voxel-definitions && deno fmt --check
+      - name: Run tests
+        run: cd @voxel-definitions && deno test --allow-net
 
   publish:
     needs: build
@@ -30,4 +36,4 @@ jobs:
         with:
           deno-version: v2.x
       - name: Publish package
-        run: deno publish
+        run: cd @voxel-definitions && deno publish
