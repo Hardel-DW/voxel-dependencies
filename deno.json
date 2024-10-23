@@ -1,13 +1,13 @@
 {
-    "workspace": [
-        "@voxel-registries",
-        "@voxel-core",
-        "@voxel-definitions",
-        "@voxel-definitions-1-21",
-        "@voxel-definitions-1-21-2"
-    ],
-    "fmt": {
-        "lineWidth": 140,
-        "indentWidth": 4
-    }
+	"workspace": [
+		"@voxel-registry",
+		"@voxel-core",
+		"@voxel-definitions",
+		"@voxel-definitions-1-21",
+		"@voxel-definitions-1-21-2"
+	],
+	"fmt": {
+		"lineWidth": 140,
+		"indentWidth": 4
+	}
 }
