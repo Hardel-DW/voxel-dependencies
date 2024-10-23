@@ -17,6 +17,11 @@ export type SoundTest = {
     };
 };
 
+export type CategorySound = {
+    name: string;
+    category: string;
+};
+
 /**
  * Search all elements in the sound directory, using GitHub API
  */
@@ -55,12 +60,12 @@ export async function getCategory(): Promise<CategorySound[]> {
             return [];
         }
 
-        const data: Array<unknown> = await response.json();
+        const data: Array<{ path: string; name: string }> = await response.json();
         const result: Array<CategorySound> = [];
 
         for (const element of data) {
             const category = element.path;
-            const name = capitalize(element.name);
+            const name = element.name.charAt(0).toUpperCase() + element.name.slice(1);
             result.push({ name, category });
         }
 
