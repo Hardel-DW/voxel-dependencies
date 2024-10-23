@@ -1,5 +1,5 @@
 {
-	"name": "@voxel/definitions",
+	"name": "@voxel/definitions-1-21",
 	"version": "0.1.0",
 	"exports": "./package/index.ts",
 	"license": "MIT",
