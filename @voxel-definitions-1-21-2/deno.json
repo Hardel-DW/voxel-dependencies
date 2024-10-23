@@ -1,6 +1,6 @@
 {
     "name": "@voxel/definitions-1-21-2",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "exports": "./package/index.ts",
     "license": "MIT",
     "exclude": ["test"],

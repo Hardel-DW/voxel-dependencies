@@ -1,4 +1,4 @@
-import type { TagType } from "jsr:@voxel-definitions";
+import type { TagType } from "jsr:@voxel/definitions";
 import type { Identifier, IdentifierOneToMany } from "./Identifier.ts";
 import type { RegistryElement } from "./Registry.ts";
 

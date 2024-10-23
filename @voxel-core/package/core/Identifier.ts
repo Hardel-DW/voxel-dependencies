@@ -1,5 +1,6 @@
-import { REGISTRY_NAME } from "../../../@voxel-registry/package/index.ts";
+import { REGISTRY_NAME } from "jsr:@voxel/registry";
 import type { OptionalTag } from "jsr:@voxel/definitions";
+import type { RegistryElement } from "./Registry.ts";
 
 export type IdentifierOneToMany = {
     primary: Identifier;
