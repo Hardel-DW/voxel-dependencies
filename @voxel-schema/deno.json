@@ -1,0 +1,16 @@
+{
+	"name": "@voxel/schema",
+	"version": "0.2.0",
+	"exports": "./package/index.ts",
+	"license": "MIT",
+	"test": {
+		"include": ["test"]
+	},
+	"imports": {
+		"@voxel/registry": "jsr:@voxel/registry@0.2.0"
+	},
+	"fmt": {
+		"lineWidth": 140,
+		"indentWidth": 4
+	}
+}
